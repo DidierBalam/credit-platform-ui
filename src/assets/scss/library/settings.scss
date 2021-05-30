@@ -1,0 +1,111 @@
+@media screen and (min-width: $minpc) {
+  body {
+    font-size: 0.9vw !important;
+    overflow: overlay;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 0.9em;
+    border-radius: 2em;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 2em;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #9797aa40;
+    border-radius: 2em;
+
+    opacity: 0.5;
+
+    &:hover {
+      background-color: #9797aa71;
+      transition: all 1s;
+    }
+  }
+}
+
+@media screen and (max-width: $minpc) and (min-width: $tablet) {
+  body {
+    font-size: 1.2vw !important;
+    overflow: overlay;
+  }
+
+  /* width */
+  ::-webkit-scrollbar {
+    width: 1em;
+    border-radius: 2em;
+  }
+
+  /* Track */
+  ::-webkit-scrollbar-track {
+    border-radius: 2em;
+  }
+
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background-color: #9797aa40;
+    border-radius: 2em;
+
+    opacity: 0.5;
+
+    &:hover {
+      background-color: #9797aa71;
+      transition: all 1s;
+    }
+  }
+}
+
+@media screen and (max-width: $tablet) and (min-width: $mobile) {
+  body {
+    font-size: 2vw !important;
+  }
+}
+
+@media screen and (max-width: $mobile) {
+  body {
+    font-size: 3.5vw !important;
+  }
+}
+
+body {
+  // background: #6516ce;
+  background-color: $white;
+
+  &.inactive-scroll {
+    overflow: hidden;
+  }
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+*,
+::after,
+::before {
+  box-sizing: border-box;
+}
+
+p,
+button,
+input,
+h1,
+h2,
+h3 {
+  font-size: inherit;
+  outline: none;
+  font-weight: initial;
+  font-family: $primary_font;
+}
+
+hr {
+  border: none;
+  height: 0.15em;
+  background-color: $light_gray;
+}

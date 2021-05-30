@@ -1,0 +1,35 @@
+@import '../library/variables.scss';
+
+.module-layout.login-module {
+  padding: 0;
+
+  @media screen and (min-width: $tablet) and(max-width: $minpc) {
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+  }
+
+  @media screen and (max-width: $mobile) {
+  }
+
+  .center-layout {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .login-card {
+      width: 33em;
+      height: 42em;
+      padding: 5em;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: $radius;
+      box-shadow: $shadow1;
+    }
+  }
+}

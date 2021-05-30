@@ -1,0 +1,50 @@
+.module-layout {
+  padding-top: 4em;
+  padding-left: 5em;
+  padding-right: 5em;
+  padding-bottom: 5em;
+  display: flex;
+  justify-content: center;
+
+  .left-layout {
+    width: 20%;
+  }
+
+  .center-layout {
+    width: 60%;
+  }
+
+  .right-layout {
+    width: 20%;
+  }
+}
+
+.loading-bar {
+  position: relative;
+  width: 15em;
+  height: 0.5em;
+  border-radius: 1em;
+  background-color: $extra_light_gray;
+  overflow: hidden;
+
+  .loading-bar-child {
+    position: absolute;
+    width: 5em;
+    height: 100%;
+    background-color: $purple;
+    border-radius: 1em;
+    animation: loading_bar_transition 1s infinite;
+
+    @keyframes loading_bar_transition {
+      0% {
+        margin-left: 0;
+      }
+
+      100% {
+        margin-left: 15em;
+      }
+    }
+  }
+}
+
+//Modal Body
