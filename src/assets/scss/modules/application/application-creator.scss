@@ -1,0 +1,31 @@
+@import '../../library/variables.scss';
+
+.module-layout.application-creator-module {
+  @media screen and (min-width: $tablet) and(max-width: $minpc) {
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+  }
+
+  @media screen and (max-width: $mobile) {
+  }
+
+  .center-layout {
+    .main-container {
+      display: flex;
+
+      .loaded-form {
+        width: 75%;
+        padding-right: 8em;
+      }
+
+      .information {
+        width: 25%;
+        height: max-content;
+        background-color: $extra_light_gray;
+        border-radius: .5em;
+        padding: 3em;
+      }
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@import '../../library/variables.scss';
+
+.module-layout.dashboard-module {
+  @media screen and (min-width: $tablet) and(max-width: $minpc) {
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+  }
+
+  @media screen and (max-width: $mobile) {
+  }
+
+  .center-layout {
+    .main-container {
+      display: flex;
+
+      .summary {
+        width: 70%;
+        margin-right: 8em;
+
+        .applications {
+          .application {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-column-gap: 1em;
+            align-items: center;
+
+            .status div {
+              padding: 0.5em;
+              border-radius: 2em;
+              text-align: center;
+            }
+          }
+        }
+
+        .users {
+          margin-top: 4em;
+          border-top: .2em solid $extra_light_gray;
+          padding-top: 4em;
+
+          .user {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-column-gap: 1em;
+            align-items: center;
+
+            .key {
+              width: 15em;
+            }
+
+            .status div {
+              padding: 0.5em;
+              border-radius: 2em;
+              text-align: center;
+            }
+          }
+        }
+      }
+
+      .statistics {
+        width: 30%;
+      }
+    }
+  }
+}

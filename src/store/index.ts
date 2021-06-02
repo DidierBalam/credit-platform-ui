@@ -1,20 +1,24 @@
-import { createLogger, createStore } from 'vuex';
+import { createStore } from 'vuex';
 import { RootState } from '../shared/types/store-types';
-import { ModalStore, ModuleStore } from './modules/modal/modal-store';
-// import createPersistedState from "vuex-persistedstate";
+import { ModalModuleType, ModalStore } from './modules/modal/modal-store';
+import { AuthModuleType, AuthStore } from './modules/auth/auth-store';
+import {
+  ApplicationModuleType,
+  ApplicationStore,
+} from './modules/application/application-store';
+import { UserModuleType, UserStore } from './modules/user/user-store';
 
-type Store = ModuleStore<Pick<RootState, 'ModalStore'>>;
-
-// Plug in logger when in development environment
-// const debug = process.env.NODE_ENV !== 'production';
-// const plugins = debug ? [createLogger({})] : [];
-// Plug in session storage based persistence
-// plugins.push(createPersistedState({ storage: window.sessionStorage }));
+type Store = ModalModuleType<Pick<RootState, 'ModalStore'>> &
+  AuthModuleType<Pick<RootState, 'AuthStore'>> &
+  ApplicationModuleType<Pick<RootState, 'ApplicationStore'>> &
+  UserModuleType<Pick<RootState, 'UserStore'>>;
 
 export const store = createStore({
-  // plugins,
   modules: {
     ModalStore,
+    AuthStore,
+    ApplicationStore,
+    UserStore,
   },
 });
 

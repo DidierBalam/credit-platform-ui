@@ -1,8 +1,4 @@
 .module-layout {
-  padding-top: 4em;
-  padding-left: 5em;
-  padding-right: 5em;
-  padding-bottom: 5em;
   display: flex;
   justify-content: center;
 
@@ -11,11 +7,51 @@
   }
 
   .center-layout {
-    width: 60%;
+    width: 80%;
+
+    .main-container {
+      padding: 5em;
+      padding-top: 4em;
+    }
+  }
+}
+
+.sidebar {
+  position: fixed;
+  width: 20%;
+  height: 100%;
+  box-shadow: $shadow2;
+  z-index: 4;
+  padding: 3em;
+
+  .logo {
+    margin-top: 3em;
   }
 
-  .right-layout {
-    width: 20%;
+  .options {
+    margin-top: 6em;
+    button {
+      justify-content: left;
+    }
+  }
+}
+
+.navbar {
+  height: 6em;
+  width: 100%;
+
+  .nav-child {
+    position: fixed;
+    width: 80%;
+    height: 6em;
+    padding-left: 4em;
+    padding-right: 4em;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    background-color: $white;
+    box-shadow: 0 0 5px 0 #8d95a12e;
+    z-index: 3;
   }
 }
 
@@ -47,4 +83,68 @@
   }
 }
 
-//Modal Body
+.dynamic-form {
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-column-gap: 3em;
+    grid-row-gap: 3em;
+  }
+}
+
+.modal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: $modal_index;
+
+  .modal-bg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: #33283dbf;
+  }
+
+  .modal-content {
+    position: relative;
+    background-color: $white;
+    padding: 5em;
+    padding-top: 3em;
+    border-radius: 2em;
+    box-shadow: 0 5px 20px 0 #4f08c824;
+  }
+
+  &.min {
+    .modal-content {
+      min-width: 40em;
+      min-height: 38.5em;
+    }
+  }
+}
+
+.loading-process {
+  position: relative;
+  width: 100%;
+  height: 1.2em;
+  border-radius: 1em;
+  background-color: $white;
+  box-shadow: $shadow2;
+  overflow: hidden;
+
+  .loading-process-child {
+    position: absolute;
+    height: 100%;
+    background: linear-gradient(269deg, #8e35f9 0%, #be85ff 100%);
+    border-radius: 1em;
+
+    transition: width .8s;
+  }
+}

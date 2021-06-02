@@ -1,0 +1,51 @@
+@import '../../library/variables.scss';
+
+.module-layout.application-reviewer-module {
+  @media screen and (min-width: $tablet) and(max-width: $minpc) {
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+  }
+
+  @media screen and (max-width: $mobile) {
+  }
+
+  .center-layout {
+    .main-container {
+      display: flex;
+
+      .loaded-reviewer {
+        width: 75%;
+        padding-right: 8em;
+
+        .summary {
+          display: flex;
+
+          div.item {
+            width: 50%;
+            border: 0.2em solid $extra_light_gray;
+            padding: 3em;
+            border-radius: 0.5em;
+          }
+
+          div.status {
+            padding: 0.5em;
+            border-radius: 2em;
+            padding-right: 2em;
+            padding-left: 2em;
+            text-align: center;
+            width: max-content;
+          }
+        }
+      }
+
+      .information {
+        width: 25%;
+        height: max-content;
+        background-color: $extra_light_gray;
+        border-radius: 0.5em;
+        padding: 3em;
+      }
+    }
+  }
+}

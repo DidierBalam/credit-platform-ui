@@ -1,10 +1,14 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
+import { signinRoutes } from './routes/signin-routes';
+import { signupRoutes } from './routes/signup-routes';
+import { adminRoutes } from './routes/admin-routes';
+import { applicationRoutes } from './routes/application-routes';
+
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'Login',
-    component: () => import('../../modules/Login/LoginModule.vue'),
-  },
+  signinRoutes,
+  signupRoutes,
+  ...adminRoutes,
+  ...applicationRoutes,
 ];
 
 const router = createRouter({

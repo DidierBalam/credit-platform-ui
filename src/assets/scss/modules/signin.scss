@@ -1,0 +1,95 @@
+@import '../library/variables.scss';
+
+.module-layout.signin-module {
+  padding: 0;
+
+  @media screen and (min-width: $tablet) and(max-width: $minpc) {
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+  }
+
+  @media screen and (max-width: $mobile) {
+  }
+
+  .signin-background {
+    i {
+      position: absolute;
+      opacity: .4;
+    }
+
+    .item1 {
+      left: 12em;
+      top: 10em;
+    }
+
+    .item2 {
+      left: 15em;
+      top: 20em;
+    }
+
+    .item3 {
+      left: 20em;
+      top: 5em;
+    }
+
+    .item4 {
+      right: 18em;
+      top: 8em;
+    }
+
+    .item5 {
+      right: 10em;
+      top: 15em;
+    }
+
+    .item6 {
+      right: 10em;
+      top: 25em;
+    }
+
+    .item7 {
+      left: 8em;
+      top: 28em;
+    }
+
+    
+  }
+
+  .center-layout {
+    position: absolute;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .signin-card {
+      width: 33em;
+      height: 44em;
+      padding: 5em;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      border-radius: $radius;
+      box-shadow: $shadow1;
+
+      animation: signin_card_transition 2s;
+
+      @keyframes signin_card_transition {
+        0% {
+          opacity: 0;
+          backface-visibility: hidden;
+          transform: translate(-5em, 0) translateZ(0);
+        }
+
+        50% {
+          opacity: 1;
+          backface-visibility: hidden;
+          transform: translate(0, 0em) translateZ(0);
+        }
+      }
+    }
+  }
+}

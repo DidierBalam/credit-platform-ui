@@ -1,13 +1,13 @@
 import { Store as VuexStore, CommitOptions, Module } from 'vuex';
-import { state } from './state-modal-store';
-import { mutations } from './mutations-modal-store';
+import { state } from './modal-state-store';
+import { mutations } from './modal-mutation-store';
 import {
   ModalStateType,
   ModalMutationType,
   RootState,
 } from '../../../shared/types/store-types';
 
-type ModuleStore<S = ModalStateType> = Omit<
+type ModalModuleType<S = ModalStateType> = Omit<
   VuexStore<S>,
   'getters' | 'commit' | 'dispatch'
 > & {
@@ -26,4 +26,4 @@ const ModalStore: Module<ModalStateType, RootState> = {
   mutations,
 };
 
-export { ModuleStore, ModalStore };
+export { ModalModuleType, ModalStore };

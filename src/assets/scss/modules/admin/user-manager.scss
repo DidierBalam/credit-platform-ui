@@ -1,0 +1,33 @@
+@import '../../library/variables.scss';
+
+.module-layout.user-manager-module {
+  @media screen and (min-width: $tablet) and(max-width: $minpc) {
+  }
+
+  @media screen and (min-width: $mobile) and (max-width: $tablet) {
+  }
+
+  @media screen and (max-width: $mobile) {
+  }
+
+  .center-layout {
+    .main-container {
+      .user {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-column-gap: 1em;
+        align-items: center;
+
+        .key {
+          width: 15em;
+        }
+
+        .status div {
+          padding: 0.5em;
+          border-radius: 2em;
+          text-align: center;
+        }
+      }
+    }
+  }
+}
