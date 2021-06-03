@@ -8,9 +8,9 @@ import {
 
 export const getters: GetterTree<AuthStateType, RootState> & AuthGetterType = {
   isAuth(state: AuthStateType): boolean {
-    return state.token !== null;
+    return state.token !== '';
   },
-  userType(state: AuthStateType): string | undefined {
-    return state.userData.type;
+  isAdmin(state: AuthStateType): boolean {
+    return state.userData?.type === "admin" ? true : false;
   },
 };

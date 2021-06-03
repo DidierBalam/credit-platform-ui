@@ -3,10 +3,12 @@ import { signinRoutes } from './routes/signin-routes';
 import { signupRoutes } from './routes/signup-routes';
 import { adminRoutes } from './routes/admin-routes';
 import { applicationRoutes } from './routes/application-routes';
+import { userRoutes } from "./routes/user-routes"
 
 const routes: Array<RouteRecordRaw> = [
   signinRoutes,
   signupRoutes,
+  userRoutes,
   ...adminRoutes,
   ...applicationRoutes,
 ];

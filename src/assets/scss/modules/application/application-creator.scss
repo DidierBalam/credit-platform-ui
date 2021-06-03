@@ -28,4 +28,8 @@
       }
     }
   }
+
+  & + .modal .loading{
+    margin-top: 10em;
+  }
 }

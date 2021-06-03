@@ -10,34 +10,48 @@
     </div>
     <!-- //Logo -->
 
-    <div class="options">
-      <router-link class="link" to="/admin">
-        <button class="btn primary-btn purple -wd100">
-          <p>Dashboard</p>
-        </button>
-      </router-link>
-      <router-link class="link" to="/admin/applications">
-        <button class="btn transparent-btn gray -wd100 -mt1">
-          <p>Solicitudes</p>
-        </button>
-      </router-link>
-      <router-link class="link" to="/admin/users">
-        <button class="btn transparent-btn gray -wd100 -mt1">
-          <p>Usuarios</p>
-        </button>
-      </router-link>
-    </div>
+    <Suspense>
+      <template #default>
+        <keep-alive>
+          <component :is="useComponent" />
+        </keep-alive>
+      </template>
+      <template #fallback>
+        <div class="options">
+          <div class="loading-text -wd50 -mt2"></div>
+          <div class="loading-text -wd75 -mt2"></div>
+          <div class="loading-text -wd60 -mt2"></div>
+          <div class="loading-text -wd75 -mt2"></div>
+        </div>
+      </template>
+    </Suspense>
   </div>
 </template>
 
 <script lang="ts">
 //Libraries
-import { defineComponent } from "vue";
+import { computed, defineAsyncComponent, defineComponent } from "vue";
+
+//Store
+import { useStore } from "@/store/index";
 
 export default defineComponent({
   name: "Sidebar",
   setup() {
-    //
+    //Data
+    const store = useStore();
+
+    //Computed
+    const useComponent = computed(() => {
+      return store.getters.isAdmin
+        ? defineAsyncComponent(() => import("./AdminOptions.vue"))
+        : defineAsyncComponent(() => import("./UserOptions.vue"));
+    });
+
+    return {
+      //Computed
+      useComponent,
+    };
   },
 });
 </script>

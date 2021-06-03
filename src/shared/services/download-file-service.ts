@@ -1,7 +1,7 @@
-import { generateId } from './idgenerator-service';
+import { generateId } from '../../core/services/idgenerator-service';
 
-const downloadFile = (file: any) => {
-  let element = document.createElement('a');
+const downloadFile = (file: any) : void => {
+  const element = document.createElement('a');
   element.setAttribute('href', file);
   element.setAttribute('download', generateId().toString());
   element.style.display = 'none';

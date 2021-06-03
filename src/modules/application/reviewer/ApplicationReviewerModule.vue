@@ -10,7 +10,7 @@
     <div class="center-layout">
       <NavBar />
 
-      <div class="main-container">
+      <div class="main-container" v-if="applicationData">
         <div class="loaded-reviewer">
           <div>
             <button
@@ -34,10 +34,12 @@
                 class="-text2 -bold -mtd5"
                 :class="determineIsNew(applicationData.create) ? '-blue' : '-gray'"
               >
-                {{ getLocalTime(applicationData.create) }}
+                {{
+                  applicationData.create ? getLocalTime(applicationData.create) : "---"
+                }}
               </p>
 
-              <p class="-text2 -black -extra-bold -mt1">Editado</p>
+              <p class="-text2 -black -extra-bold -mt2">Editado</p>
               <p
                 class="-text2 -bold -mtd5"
                 :class="
@@ -55,19 +57,26 @@
             </div>
 
             <div class="-ml2 item">
-              <p class="-text2 -gray -extra-bold">Estado</p>
-              <div
-                class="status -mt1"
-                :class="{
-                  '-green-bg': applicationData.status === ApplicationStatusOptions.ok,
-                  '-blue-bg': applicationData.status === ApplicationStatusOptions.waiting,
-                  '-yellow-bg':
-                    applicationData.status === ApplicationStatusOptions.rejected,
-                }"
-              >
-                <p class="-text2 -black -bold -white">
-                  {{ translateStatusName(applicationData.status) }}
-                </p>
+              <div>
+                <p class="-text2 -black -extra-bold">Estado</p>
+                <div
+                  class="status -mtd5"
+                  :class="{
+                    '-green-bg': applicationData.status === ApplicationStatusOptions.ok,
+                    '-blue-bg':
+                      applicationData.status === ApplicationStatusOptions.waiting,
+                    '-yellow-bg':
+                      applicationData.status === ApplicationStatusOptions.rejected,
+                  }"
+                >
+                  <p class="-text2 -black -bold -white">
+                    {{ translateApplicationStatusName(applicationData.status) }}
+                  </p>
+                </div>
+              </div>
+              <div>
+                <p class="-text2 -black -extra-bold -mt1">Usuario</p>
+                <p class="-bold -text2 -gray">{{ username }}</p>
               </div>
             </div>
           </div>
@@ -88,6 +97,10 @@
           </template>
         </Suspense>
       </div>
+
+      <div v-else>
+        <PageErrorMessage class="-mt5" />
+      </div>
     </div>
     <!-- //Center layout -->
   </div>
@@ -106,14 +119,18 @@ import { ApplicationStatusOptions } from "@/shared/types/enum/applicaton-status-
 import { useStore } from "@/store/index";
 
 //Services
-import { translateStatusName } from "@/shared/services/application-service";
+import { translateApplicationStatusName } from "@/shared/services/translate-service";
 import { getLocalTime, determineIsNew } from "@/shared/services/time-service";
+
+//Mixins
+import { scrollMixin } from "@/shared/mixins/scroll-mixin";
 
 //Component
 import Sidebar from "@/shared/components/sidebar/Sidebar.vue";
 import NavBar from "@/shared/components/navbar/NavBar.vue";
 import DynamicReviewer from "@/shared/components/reviewer/DynamicReviewer.vue";
 import LoadingBar from "@/shared/components/LoadingBar.vue";
+import PageErrorMessage from "@/shared/components/PageErrorMessage.vue";
 
 export default defineComponent({
   name: "ApplicationReviewer",
@@ -122,7 +139,9 @@ export default defineComponent({
     NavBar,
     DynamicReviewer,
     LoadingBar,
+    PageErrorMessage,
   },
+  mixins: [scrollMixin],
   setup() {
     //Data
     const store = useStore();
@@ -134,9 +153,15 @@ export default defineComponent({
     });
 
     const useComponent = computed(() => {
-      return store.getters.userType === "admin"
+      return store.getters.isAdmin
         ? defineAsyncComponent(() => import("./AdminOptions.vue"))
         : defineAsyncComponent(() => import("./UserOptions.vue"));
+    });
+
+    const username = computed(() => {
+      return store.state.UserStore.users.find(
+        (x) => x.userId == applicationData.value?.userId
+      )?.username;
     });
 
     return {
@@ -147,8 +172,9 @@ export default defineComponent({
       //Computed
       applicationData,
       useComponent,
+      username,
       //Methods
-      translateStatusName,
+      translateApplicationStatusName,
       getLocalTime,
       determineIsNew,
     };

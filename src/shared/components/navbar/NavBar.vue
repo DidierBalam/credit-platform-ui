@@ -1,6 +1,10 @@
 <template>
   <nav class="navbar">
     <div class="nav-child">
+      <div class="-flex -items-center -mr1" v-if="isAdmin">
+        <i class="bx bxs-cctv -text2 -purple"></i>
+        <p class="-text3 -extra-bold -purple -mld3">Modo administrador</p>
+      </div>
       <!-- Account DropDown -->
       <div class="dropdown" id="account-dropdown">
         <div
@@ -11,25 +15,20 @@
           class="btn transparent-btn gray tigger"
           @click="executeDropdown(true, 'account-dropdown')"
         >
-          <p>DidierBalam</p>
+          <i class="bx bxs-user general-icon"></i>
+          <p>{{ username }}</p>
           <i class="bx bx-chevron-down general-icon drop"></i>
         </button>
 
         <!-- Options -->
         <div class="dropdown-options -flex-end">
           <div class="dropdown-options-child">
-            <button class="btn transparent-btn gray">
-              <i class="fi-rr-heart general-icon"></i>
-              <p>Planes y Precios</p>
-            </button>
-            <button class="btn transparent-btn gray">
-              <i class="fi-rr-copyright general-icon"></i>
-              <p>Acerda de</p>
-            </button>
-            <button class="btn transparent-btn gray">
-              <i class="fi-rr-sign-out general-icon" style="transform: scale(-1)"></i>
-              <p>Salir</p>
-            </button>
+            <router-link to="/signin" class="link">
+              <button class="btn transparent-btn gray" @click="logout()">
+                <i class="bx bx-log-out general-icon"></i>
+                <p>Cerrar sesión</p>
+              </button>
+            </router-link>
           </div>
         </div>
         <!-- //Options -->
@@ -47,14 +46,45 @@
 
 <script lang="ts">
 //Libraries
-import { defineComponent, onMounted, onUnmounted } from "vue";
+import { computed, defineComponent, onMounted, onUnmounted } from "vue";
+import router from "@/core/router";
+
+//Store
+import { useStore } from "@/store/index";
 
 //Services
 import { executeDropdown } from "@/shared/services/dom-service";
+import { AuthActionsOptions } from "@/shared/types/enum/store-enum";
+import { StatusResponseType } from "@/shared/types/http-response-types";
 
 export default defineComponent({
   name: "NavBar",
   setup() {
+    //Data
+
+    const store = useStore();
+
+    //Computed
+    const username = computed(() => {
+      return store.state.AuthStore.userData?.username;
+    });
+
+    const isAdmin = computed(() => {
+      return store.getters.isAdmin;
+    });
+
+    //Methods
+    const logout = () => {
+      store
+        .dispatch(AuthActionsOptions.deleteSession, undefined)
+        .then((res: StatusResponseType) => {
+          if (res.status) {
+            router.push("/signin");
+          } else alert(res.message);
+        })
+        .catch((err) => alert(err));
+    };
+
     //Lifecycle Hooks
 
     onMounted(() => {
@@ -70,7 +100,11 @@ export default defineComponent({
     });
 
     return {
+      //Computed
+      isAdmin,
+      username,
       //Methods
+      logout,
       executeDropdown,
     };
   },

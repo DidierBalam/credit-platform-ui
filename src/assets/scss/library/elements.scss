@@ -195,7 +195,7 @@
         color: $gray;
       }
 
-      &:hover{
+      &:hover {
         cursor: pointer;
       }
     }
@@ -217,7 +217,7 @@
       }
 
       /* Firefox */
-      &[type='number'] {
+      &[type="number"] {
         -moz-appearance: textfield;
       }
     }
@@ -459,6 +459,23 @@
 .link {
   text-decoration: none;
   font-family: $primary_font;
+
+  &.navigation.router-link-exact-active {
+    button {
+      @extend .primary-btn;
+    }
+  }
+
+  &.navigation.router-link-active {
+    button {
+      @extend .primary-btn;
+    }
+  }
+
+  &.navigation button {
+    background: $white;
+    color: $gray;
+  }
 }
 
 .loading-text {

@@ -16,6 +16,7 @@ import { mutations } from './application-mutation';
 import { actions } from './application-action';
 import { getters } from './application-getter';
 
+
 type ApplicationModuleType<S = ApplicationStateType> = Omit<
   VuexStore<S>,
   'getters' | 'commit' | 'dispatch'

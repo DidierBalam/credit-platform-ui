@@ -1,3 +1,6 @@
+import { authGuard } from "../guards/auth-guard"
+import { userGuard } from "../guards/user-guard";
+
 const applicationRoutes = [
   {
     path: '/application/create',
@@ -6,6 +9,7 @@ const applicationRoutes = [
       import(
         '../../../modules/application/creator/ApplicationCreatorModule.vue'
       ),
+    beforeEnter: [authGuard, userGuard]
   },
   {
     path: '/application/:id',
@@ -14,6 +18,7 @@ const applicationRoutes = [
       import(
         '../../../modules/application/reviewer/ApplicationReviewerModule.vue'
       ),
+    beforeEnter: authGuard
   },
 ];
 

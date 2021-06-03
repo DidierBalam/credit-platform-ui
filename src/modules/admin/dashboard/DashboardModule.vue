@@ -32,6 +32,9 @@
 //Libraries
 import { defineComponent, ref } from "vue";
 
+//Mixins
+import { scrollMixin } from "@/shared/mixins/scroll-mixin";
+
 //Component
 import Sidebar from "../../../shared/components/sidebar/Sidebar.vue";
 import NavBar from "../../../shared/components/navbar/NavBar.vue";
@@ -50,6 +53,7 @@ export default defineComponent({
     ApplicationStatistics,
     UserStatistics,
   },
+  mixins: [scrollMixin],
   setup() {
     //Data
     const isLoading = ref<boolean>(false);

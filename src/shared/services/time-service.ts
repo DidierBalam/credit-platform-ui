@@ -1,10 +1,11 @@
-const getLocalTime = (date: Date): string => {
+const getLocalTime = (value: Date): string => {
+  const date = new Date(value)
   return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
 };
 
-const determineIsNew = (time: Date): boolean => {
+const determineIsNew = (value: Date): boolean => {
+  const time = new Date(value)
   const today = new Date();
-
   if (
     time.getFullYear() == today.getFullYear() &&
     time.getMonth() == today.getMonth() &&

@@ -1,6 +1,6 @@
 import { ApplicationStatusOptions } from '../types/enum/applicaton-status-enum';
 
-const translateStatusName = (status: string) : string => {
+const translateApplicationStatusName = (status: string) : string => {
   let response = '';
   switch (status) {
     case ApplicationStatusOptions.ok:
@@ -19,4 +19,4 @@ const translateStatusName = (status: string) : string => {
   return response;
 };
 
-export { translateStatusName };
+export { translateApplicationStatusName };

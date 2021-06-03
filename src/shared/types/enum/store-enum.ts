@@ -15,6 +15,11 @@ enum UserMutationOptions {
   updateUser = 'UPDATE_USER',
 }
 
+enum AuthMutationOptions {
+  createSession = 'CREATE_SESSION',
+  deleteSession = 'DELETE_SESSION'
+}
+
 //Actions
 
 enum ApplicationActionOptions {
@@ -30,12 +35,19 @@ enum UserActionOptions {
   updateUser = 'UPDATE_USER',
 }
 
+enum AuthActionsOptions {
+  createSession = 'CREATE_SESSION',
+  deleteSession = 'DELETE_SESSION'
+}
+
 export {
   //Mutations
   ModalMutationOptions,
   ApplicationMutationOptions,
   UserMutationOptions,
+  AuthMutationOptions,
   //Actions
   ApplicationActionOptions,
   UserActionOptions,
+  AuthActionsOptions
 };

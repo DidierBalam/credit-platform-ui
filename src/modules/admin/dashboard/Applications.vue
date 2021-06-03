@@ -30,7 +30,7 @@
             }"
           >
             <p class="-text3 -white -extra-bold">
-              {{ translateStatusName(item.status) }}
+              {{ translateApplicationStatusName(item.status) }}
             </p>
           </div>
         </div>
@@ -58,37 +58,29 @@
 
 <script lang="ts">
 //Libraries
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
-//Types
-import { ApplicationStatusOptions } from "@/shared/types/enum/applicaton-status-enum";
-
-//Store
-import { useStore } from "@/store/index";
-
-//Services
-import { translateStatusName } from "../../../shared/services/application-service";
-import { ApplicationType } from "@/shared/types/application-types";
-import { getLocalTime, determineIsNew } from "@/shared/services/time-service";
+//Composables
+import useApplication from "@/shared/composables/useApplication";
 
 export default defineComponent({
   name: "Applications",
   setup() {
-    //Data
-    const store = useStore();
-
-    //Computed
-    const applications = computed((): ApplicationType[] | undefined => {
-      return store.getters.applicationData;
-    });
+    const {
+      applications,
+      ApplicationStatusOptions,
+      translateApplicationStatusName,
+      getLocalTime,
+      determineIsNew,
+    } = useApplication();
 
     return {
       //Data
       applications,
-      //Types
+      //Type
       ApplicationStatusOptions,
       //Methods
-      translateStatusName,
+      translateApplicationStatusName,
       getLocalTime,
       determineIsNew,
     };

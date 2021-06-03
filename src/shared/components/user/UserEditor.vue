@@ -76,18 +76,15 @@ export default defineComponent({
   components: {
     LoadingProcess,
   },
-  props: {
-    elementId: null,
-  },
-  setup(props) {
+  setup() {
     //Data
     const store = useStore();
 
-    const id = ref<number>(props.elementId);
-
     const user: UserType = Object.assign(
       {},
-      store.state.UserStore.users.find((x) => x.userId == id.value)
+      store.state.UserStore.users.find(
+        (x) => x.userId == store.state.ModalStore.config.elementId
+      )
     );
 
     const isLoading = ref<boolean>(false);

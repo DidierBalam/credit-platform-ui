@@ -4,6 +4,8 @@ import { ModalConfig } from './config/modal-config';
 import {
   ApplicationActionOptions,
   ApplicationMutationOptions,
+  AuthActionsOptions,
+  AuthMutationOptions,
   ModalMutationOptions,
   UserActionOptions,
   UserMutationOptions,
@@ -14,6 +16,7 @@ import {
   StatusResponseType,
   UserRegisterResponseType,
 } from '@/shared/types/http-response-types';
+import { MetricCountType } from './metric-count-type';
 
 //State
 type ModalStateType = {
@@ -22,7 +25,7 @@ type ModalStateType = {
 };
 
 type AuthStateType = {
-  userData: UserType;
+  userData: UserType | undefined;
   token: string;
 };
 
@@ -37,15 +40,21 @@ type UserStateType = {
 //Getters
 type AuthGetterType = {
   isAuth(state: AuthStateType): boolean;
-  userType(state: AuthStateType): string | undefined;
+  isAdmin(state: AuthStateType): boolean;
 };
 
 type ApplicationGetterType = {
   applicationData(state: ApplicationStateType): ApplicationType[] | undefined;
+  getApprovedCount(state: ApplicationStateType): MetricCountType | undefined;
+  getRejectedCount(state: ApplicationStateType): MetricCountType | undefined;
+  getWarningCount(state: ApplicationStateType): MetricCountType | undefined;
 };
 
 type UserGetterType = {
   userData(state: UserStateType): UserType[] | undefined;
+  getUserCount(state: UserStateType): number;
+  getActiveCount(state: UserStateType): MetricCountType | undefined;
+  getInactiveCount(state: UserStateType): MetricCountType | undefined;
 };
 
 //Mutation
@@ -76,6 +85,16 @@ type UserMutationType = {
   [UserMutationOptions.addUser](state: UserStateType, user: UserType): void;
   [UserMutationOptions.updateUser](state: UserStateType, user: UserType): void;
 };
+
+type AuthMutationType = {
+  [AuthMutationOptions.createSession](
+    state: AuthStateType,
+    user: UserType,
+  ): void;
+  [AuthMutationOptions.deleteSession](
+    state: AuthStateType
+  ): void;
+}
 
 //Actions
 type ApplicationActionType = {
@@ -114,6 +133,15 @@ type UserActionType = {
   ): Promise<StatusResponseType>;
 };
 
+type AuthActionType = {
+  [AuthActionsOptions.createSession](
+    { commit }: AthAugmentedActionContext,
+    user: UserType
+  ): Promise<StatusResponseType>;
+  [AuthActionsOptions.deleteSession](
+    { commit }: AthAugmentedActionContext): Promise<StatusResponseType>
+}
+
 //Action Arguments
 type ApplicationAugmentedActionContext = {
   commit<K extends keyof ApplicationMutationType>(
@@ -128,6 +156,13 @@ type UserAugmentedActionContext = {
     payload: Parameters<UserMutationType[K]>[1]
   ): ReturnType<UserMutationType[K]>;
 } & Omit<ActionContext<UserStateType, RootState>, 'commit'>;
+
+type AthAugmentedActionContext = {
+  commit<K extends keyof AuthMutationType>(
+    key: K,
+    payload: Parameters<AuthMutationType[K]>[1]
+  ): ReturnType<AuthMutationType[K]>;
+} & Omit<ActionContext<AuthStateType, RootState>, 'commit'>;
 
 //Root
 type RootState = {
@@ -151,9 +186,11 @@ export {
   ModalMutationType,
   ApplicationMutationType,
   UserMutationType,
+  AuthMutationType,
   //Actions
   ApplicationActionType,
   UserActionType,
+  AuthActionType,
   //Root
   RootState,
 };

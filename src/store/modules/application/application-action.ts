@@ -9,7 +9,7 @@ import {
   RootState,
 } from '@/shared/types/store-types';
 import { ActionTree } from 'vuex';
-import { generateId } from '@/shared/services/idgenerator-service';
+import { generateId } from '@/core/services/idgenerator-service';
 import { ApplicationStatusOptions } from '@/shared/types/enum/applicaton-status-enum';
 import { ApplicationRegisterResponseType } from '@/shared/types/http-response-types';
 
@@ -34,7 +34,7 @@ export const actions: ActionTree<ApplicationStateType, RootState> &
           message: 'Ok',
         });
       } catch (e) {
-        reject({ applicationId: undefined, status: false, message: e });
+        reject(e);
       }
     });
   },

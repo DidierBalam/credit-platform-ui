@@ -1,4 +1,4 @@
-import { generateId } from '@/shared/services/idgenerator-service';
+import { generateId } from '@/core/services/idgenerator-service';
 import {
   UserActionOptions,
   UserMutationOptions,
@@ -59,7 +59,7 @@ export const actions: ActionTree<UserStateType, RootState> & UserActionType = {
       try {
         user.userId = generateId();
         user.create = new Date();
-        user.isActive = false;
+        user.isActive = true;
         user.type = 'user';
 
         commit(UserMutationOptions.addUser, user);
@@ -70,11 +70,7 @@ export const actions: ActionTree<UserStateType, RootState> & UserActionType = {
           message: 'Ok',
         });
       } catch (e) {
-        reject({
-          userId: undefined,
-          status: false,
-          message: e,
-        });
+        reject(e);
       }
     });
   },
@@ -92,11 +88,7 @@ export const actions: ActionTree<UserStateType, RootState> & UserActionType = {
           message: 'Ok',
         });
       } catch (e) {
-        reject({
-          userId: undefined,
-          status: false,
-          message: e,
-        });
+        reject(e);
       }
     });
   },

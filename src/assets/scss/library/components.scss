@@ -128,6 +128,13 @@
       min-height: 38.5em;
     }
   }
+
+  &.med {
+    .modal-content {
+      min-width: 50em;
+      min-height: 40em;
+    }
+  }
 }
 
 .loading-process {
@@ -145,6 +152,13 @@
     background: linear-gradient(269deg, #8e35f9 0%, #be85ff 100%);
     border-radius: 1em;
 
-    transition: width .8s;
+    transition: width 0.8s;
+  }
+}
+
+.response-creation {
+  .response-icon {
+    font-size: 8em;
+    margin-top: -0.3em;
   }
 }

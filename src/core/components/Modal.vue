@@ -15,7 +15,7 @@
       <Suspense>
         <template #default>
           <keep-alive>
-            <component :is="useComponent" :elementId="elementId" />
+            <component :is="useComponent" />
           </keep-alive>
         </template>
         <template #fallback>
@@ -67,10 +67,6 @@ export default defineComponent({
       return defineAsyncComponent(store.state.ModalStore.config.component);
     });
 
-    const elementId = computed(() => {
-      return store.state.ModalStore.config.elementId;
-    });
-
     //Methods
     const closeModal = () => {
       store.commit(ModalMutationOptions.closeModal);
@@ -82,7 +78,6 @@ export default defineComponent({
       size,
       title,
       useComponent,
-      elementId,
       //Methods
       closeModal,
     };

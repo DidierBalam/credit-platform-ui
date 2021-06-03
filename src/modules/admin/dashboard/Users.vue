@@ -5,7 +5,7 @@
         <p class="-text1 -extra-bold -mtd5">Usuarios</p>
         <p class="-text3 -light-gray -bold">Administra usuarios</p>
       </div>
-      <button class="btn transparent-btn gray">
+      <button class="btn transparent-btn gray" @click="createUser()">
         <i class="bx bx-plus general-icon"></i>
         <p>Nuevo usuario</p>
       </button>
@@ -21,28 +21,30 @@
         </button>
         <!-- //Name -->
         <!-- Date -->
-        <div class="date -center-text">
+        <div class="date -flex -items-center">
           <p
             class="-text3 -extra-bold"
             :class="determineIsNew(item.create) ? '-blue' : '-gray'"
           >
             {{ getLocalTime(item.create) }}
           </p>
+          <i class="bx bxs-calendar-event -text2 -gray -mld5"></i>
         </div>
         <!-- //Date -->
 
         <!-- Options -->
         <div class="options -flex-end -items-center">
           <button
-            class="switch"
+            class="switch -mr2"
             :class="item.isActive ? 'isActive' : ''"
             @click="setUserStatus(item.userId, item.isActive)"
           >
             <p>{{ item.isActive ? "Activo" : "Inactivo" }}</p>
             <div class="switch-tigger"></div>
           </button>
-          <button class="btn transparent-btn gray -ml3">
+          <button class="btn transparent-btn gray -ml1" @click="updateUser(item.userId)">
             <i class="bx bxs-pencil general-icon"></i>
+            <p>Editar</p>
           </button>
         </div>
         <!-- //Options -->
@@ -62,48 +64,32 @@
 
 <script lang="ts">
 //Libraries
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
-//Store
-import { useStore } from "@/store/index";
-
-//Types
-import { UserType } from "@/shared/types/user-type";
-
-//Service
-import { getLocalTime, determineIsNew } from "@/shared/services/time-service";
-import { UserActionOptions } from "@/shared/types/enum/store-enum";
+//Composables
+import useUser from "@/shared/composables/useUser";
 
 export default defineComponent({
   name: "Applications",
   setup() {
-    //Data
-    const store = useStore();
-
-    //Computed
-    const users = computed((): UserType[] | undefined => {
-      return store.getters.userData;
-    });
-
-    //Methods
-    const setUserStatus = (id: number, currentStatus: boolean) => {
-      currentStatus
-        ? store
-            .dispatch(UserActionOptions.inactiveUser, id)
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err))
-        : store
-            .dispatch(UserActionOptions.activeUser, id)
-            .then((data) => console.log(data))
-            .catch((err) => console.log(err));
-    };
+    //Use
+    const {
+      users,
+      setUserStatus,
+      getLocalTime,
+      createUser,
+      updateUser,
+      determineIsNew,
+    } = useUser();
 
     return {
-      //Computed
+      //Data
       users,
       //Methods
       setUserStatus,
       getLocalTime,
+      createUser,
+      updateUser,
       determineIsNew,
     };
   },

@@ -12,7 +12,7 @@ type UserRegisterResponseType = {
 
 type StatusResponseType = {
   status: boolean;
-  message?: string;
+  message: string;
 };
 
 export {

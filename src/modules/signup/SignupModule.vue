@@ -25,12 +25,32 @@
 
           <p class="-title -black -extra-bold">Crear cuenta</p>
 
+          <p v-if="!registerResponse.status" class="-mt1 -text3 -yellow -center-text">
+            **{{ registerResponse.message }}**
+          </p>
+
           <div class="inp -mt3">
-            <input type="text" placeholder="Nombre de usuario" />
+            <input
+              type="text"
+              placeholder="Nombre de usuario"
+              v-model="user.username"
+              onkeypress="return(event.charCode != 32)"
+            />
           </div>
 
-          <div class="inp -mt2">
-            <input type="password" placeholder="Contraseña" />
+          <div class="inp button-inp -mt2">
+            <input
+              :type="isPasswordVisible ? 'text' : 'password'"
+              placeholder="Contraseña"
+              v-model.trim="user.password"
+              onkeypress="return(event.charCode != 32)"
+            />
+            <button @click="isPasswordVisible = !isPasswordVisible">
+              <i
+                class="bx general-icon"
+                :class="isPasswordVisible ? 'bx-hide' : 'bx-show'"
+              ></i>
+            </button>
           </div>
 
           <div class="-mt3">
@@ -49,7 +69,7 @@
           </div>
         </div>
         <div v-else class="-wd100">
-          <LoadingBar :title="'Iniciando sesión'" />
+          <LoadingBar :title="loadingTitle" />
         </div>
       </div>
     </div>
@@ -60,8 +80,16 @@
 <script lang="ts">
 //Libraries
 import { defineComponent, ref } from "vue";
+
+//Composable
+import useLogin from "@/shared/composables/useLogin";
+
+//Types
+import { UserActionOptions } from "@/shared/types/enum/store-enum";
+
 //Components
 import LoadingBar from "../../shared/components/LoadingBar.vue";
+import { UserRegisterResponseType } from "@/shared/types/http-response-types";
 
 export default defineComponent({
   name: "SignupModule",
@@ -70,17 +98,46 @@ export default defineComponent({
   },
   setup() {
     //Data
-    const isLoading = ref<boolean>(false);
+    const {
+      store,
+      user,
+      isPasswordVisible,
+      isLoading,
+      registerResponse,
+      signin,
+      showError,
+    } = useLogin();
+
+    const loadingTitle = ref<string>("");
 
     //Methods
-
-    const signup = async () => {
-      isLoading.value = true;
+    const signup = () => {
+      if (user.value.username && user.value.password) {
+        isLoading.value = true;
+        loadingTitle.value = "Registrando";
+        store
+          .dispatch(UserActionOptions.registerUser, user.value)
+          .then((data: UserRegisterResponseType) => {
+            setTimeout(() => {
+              if (data.status) {
+                loadingTitle.value = "Iniciando sesión";
+                signin();
+              } else {
+                showError(data.message ? data.message : "Error");
+              }
+            }, 1000);
+          })
+          .catch((err) => showError(err));
+      }
     };
 
     return {
       //Data
+      user,
       isLoading,
+      registerResponse,
+      loadingTitle,
+      isPasswordVisible,
       //Methods
       signup,
     };

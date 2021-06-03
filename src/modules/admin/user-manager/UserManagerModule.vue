@@ -50,7 +50,7 @@
                     ? determineIsNew(item.update)
                       ? '-blue'
                       : '-gray'
-                    : '--gray'
+                    : '-gray'
                 "
               >
                 {{ item.update ? getLocalTime(item.update) : "---" }}
@@ -88,17 +88,13 @@
 
 <script lang="ts">
 //Libraries
-import { computed, defineComponent } from "vue";
+import { defineComponent } from "vue";
 
-//Store
-import { useStore } from "@/store/index";
+//Mixins
+import { scrollMixin } from "@/shared/mixins/scroll-mixin";
 
-//Types
-import { UserType } from "@/shared/types/user-type";
-
-//Service
-import { getLocalTime, determineIsNew } from "@/shared/services/time-service";
-import { ModalMutationOptions, UserActionOptions } from "@/shared/types/enum/store-enum";
+//Composables
+import useUser from "@/shared/composables/useUser";
 
 //Component
 import Sidebar from "../../../shared/components/sidebar/Sidebar.vue";
@@ -110,53 +106,20 @@ export default defineComponent({
     Sidebar,
     NavBar,
   },
+  mixins: [scrollMixin],
   setup() {
-    //Data
-    const store = useStore();
-
-    //Computed
-    const users = computed((): UserType[] | undefined => {
-      return store.getters.userData;
-    });
-
-    //Methods
-    const setUserStatus = (id: number, currentStatus: boolean) => {
-      currentStatus
-        ? store
-            .dispatch(UserActionOptions.inactiveUser, id)
-            .then((data) => {
-              if (!data) console.log("error");
-            })
-            .catch((err) => console.log(err))
-        : store
-            .dispatch(UserActionOptions.activeUser, id)
-            .then((data) => {
-              if (!data) console.log("error");
-            })
-            .catch((err) => console.log(err));
-    };
-
-    const createUser = () => {
-      store.commit(ModalMutationOptions.activateModal, {
-        size: "min",
-        title: "Creando usuario",
-        isClose: false,
-        component: () => import("@/shared/components/user/UserCreator.vue"),
-      });
-    };
-
-    const updateUser = (id: number) => {
-      store.commit(ModalMutationOptions.activateModal, {
-        size: "min",
-        title: "Editando usuario",
-        isClose: false,
-        elementId: id,
-        component: () => import("@/shared/components/user/UserEditor.vue"),
-      });
-    };
+    //Use
+    const {
+      users,
+      setUserStatus,
+      getLocalTime,
+      createUser,
+      updateUser,
+      determineIsNew,
+    } = useUser();
 
     return {
-      //Computed
+      //Data
       users,
       //Methods
       setUserStatus,

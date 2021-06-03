@@ -1,5 +1,6 @@
 type ApplicationType = {
   applicationId: number;
+  userId?: number;
   status?: string;
   create?: Date;
   update?: Date;

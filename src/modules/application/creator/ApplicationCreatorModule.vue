@@ -68,8 +68,12 @@ import router from "@/core/router";
 import { dynamicForm } from "./config/form";
 
 //Types
+import { ApplicationRegisterResponseType } from "@/shared/types/http-response-types";
 import { FormType } from "@/shared/types/form-types";
-import { ApplicationActionOptions } from "@/shared/types/enum/store-enum";
+import {
+  ApplicationActionOptions,
+  ModalMutationOptions,
+} from "@/shared/types/enum/store-enum";
 
 //Services
 import { getFormData } from "@/shared/presenters/application-presenter";
@@ -77,11 +81,13 @@ import { getFormData } from "@/shared/presenters/application-presenter";
 //Store
 import { useStore } from "@/store/index";
 
+//Mixins
+import { scrollMixin } from "@/shared/mixins/scroll-mixin";
+
 //Component
 import Sidebar from "@/shared/components/sidebar/Sidebar.vue";
 import NavBar from "@/shared/components/navbar/NavBar.vue";
 import DynamicForm from "@/shared/components/form/DynamicForm.vue";
-import { ApplicationRegisterResponseType } from "@/shared/types/http-response-types";
 
 export default defineComponent({
   name: "ApplicationModule",
@@ -90,6 +96,7 @@ export default defineComponent({
     NavBar,
     DynamicForm,
   },
+  mixins: [scrollMixin],
   setup() {
     //Data
     const store = useStore();
@@ -102,17 +109,37 @@ export default defineComponent({
     };
 
     const save = async () => {
-      store
-        .dispatch(ApplicationActionOptions.registerApplication, {
-          applicationId: 0,
-          data: await getFormData(form.value),
-        })
-        .then((res: ApplicationRegisterResponseType) => {
-          res.status
-            ? router.push(`/application/${res.applicationId}`)
-            : console.log("error :(");
-        })
-        .catch((err) => console.log(err));
+      showModal(import("@/shared/components/LoadingBar.vue"));
+
+      setTimeout(async () => {
+        store
+          .dispatch(ApplicationActionOptions.registerApplication, {
+            applicationId: 0,
+            userId: store.state.AuthStore.userData?.userId,
+            data: await getFormData(form.value),
+          })
+          .then((res: ApplicationRegisterResponseType) => {
+            res.status
+              ? (() => {
+                  router.push(`/application/${res.applicationId}`);
+                  showModal(import("@/shared/components/application/SuccesCreation.vue"));
+                })()
+              : showModal(import("@/shared/components/application/ErrorCreation.vue"));
+          })
+          .catch(() =>
+            showModal(import("@/shared/components/application/ErrorCreation.vue"))
+          );
+      }, 1800);
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const showModal = (component: any) => {
+      store.commit(ModalMutationOptions.activateModal, {
+        size: "med",
+        title: "Creando solicitud",
+        isClose: false,
+        component: () => component,
+      });
     };
 
     return {

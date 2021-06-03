@@ -7,13 +7,16 @@ import {
   ApplicationStore,
 } from './modules/application/application-store';
 import { UserModuleType, UserStore } from './modules/user/user-store';
+import createPersistedState from 'vuex-persistedstate'
 
 type Store = ModalModuleType<Pick<RootState, 'ModalStore'>> &
   AuthModuleType<Pick<RootState, 'AuthStore'>> &
   ApplicationModuleType<Pick<RootState, 'ApplicationStore'>> &
   UserModuleType<Pick<RootState, 'UserStore'>>;
 
+
 export const store = createStore({
+  plugins: [createPersistedState()],
   modules: {
     ModalStore,
     AuthStore,

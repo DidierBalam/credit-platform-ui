@@ -28,12 +28,32 @@
 
           <p class="-title -mtd5 -black -extra-bold">Iniciar sesión</p>
 
+          <p v-if="!registerResponse.status" class="-mt1 -text3 -yellow -center-text">
+            **{{ registerResponse.message }}**
+          </p>
+
           <div class="inp -mt3">
-            <input type="text" placeholder="Usuario" />
+            <input
+              type="text"
+              placeholder="Nombre de usuario"
+              v-model="user.username"
+              onkeypress="return(event.charCode != 32)"
+            />
           </div>
 
-          <div class="inp -mt2">
-            <input type="password" placeholder="Contraseña" />
+          <div class="inp button-inp -mt2">
+            <input
+              :type="isPasswordVisible ? 'text' : 'password'"
+              placeholder="Contraseña"
+              v-model.trim="user.password"
+              onkeypress="return(event.charCode != 32)"
+            />
+            <button @click="isPasswordVisible = !isPasswordVisible">
+              <i
+                class="bx general-icon"
+                :class="isPasswordVisible ? 'bx-hide' : 'bx-show'"
+              ></i>
+            </button>
           </div>
 
           <div class="-mt3">
@@ -62,8 +82,10 @@
 
 <script lang="ts">
 //Libraries
-import router from "@/core/router";
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
+
+//Composable
+import useLogin from "@/shared/composables/useLogin";
 
 //Components
 import LoadingBar from "../../shared/components/LoadingBar.vue";
@@ -75,22 +97,14 @@ export default defineComponent({
   },
   setup() {
     //Data
-    const isLoading = ref<boolean>(false);
-
-    //Methods
-
-    const signin = async () => {
-      isLoading.value = true;
-      setTimeout(() => {
-        router.push("/admin");
-      }, 1500);
-    };
-
-    //Lifecycle Hooks
+    const { user, isLoading, isPasswordVisible, registerResponse, signin } = useLogin();
 
     return {
       //Data
+      user,
       isLoading,
+      registerResponse,
+      isPasswordVisible,
       //Methods
       signin,
     };

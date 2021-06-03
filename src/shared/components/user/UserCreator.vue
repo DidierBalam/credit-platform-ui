@@ -7,7 +7,7 @@
     <div class="inp -mt3">
       <input
         type="text"
-        placeholder="UserName"
+        placeholder="Nombre de usuario"
         v-model.trim="user.username"
         onkeypress="return(event.charCode != 32)"
       />
