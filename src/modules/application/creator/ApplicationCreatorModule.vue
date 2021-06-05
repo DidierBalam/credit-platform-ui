@@ -25,7 +25,8 @@
           <div class="-mt1">
             <h1 class="-title -extra-bold">Crear solicitud</h1>
           </div>
-          <DynamicForm class="-mt2" :form="form" @update="update" />
+
+          <DynamicForm class="-mt2" :form="form" />
 
           <div class="-mt5 -flex-center">
             <button class="btn outline-btn purple -wd100" @click="save()">
@@ -61,14 +62,11 @@
 
 <script lang="ts">
 //Libraries
-import { defineComponent, Ref, ref } from "vue";
+import { defineComponent, ref } from "vue";
 import router from "@/core/router";
 
 //Store
 import { useStore } from "@/store/index";
-
-//Config
-import { dynamicForm } from "./config/form";
 
 //Types
 import { ApplicationRegisterResponseType } from "@/shared/types/http-response-types";
@@ -101,13 +99,9 @@ export default defineComponent({
     //Data
     const store = useStore();
 
-    const form = ref<FormType>(dynamicForm);
+    const form = ref<FormType>({ data: [] });
 
     //Methods
-    const update = (newValue: Ref<FormType>) => {
-      form.value = newValue.value;
-    };
-
     const save = async () => {
       showModal(import("@/shared/components/LoadingBar.vue"));
 
@@ -142,11 +136,13 @@ export default defineComponent({
       });
     };
 
+    //Lifecycle hooks
+    form.value = require("./config/form.json");
+
     return {
       //Data
       form,
       //Methods
-      update,
       save,
     };
   },

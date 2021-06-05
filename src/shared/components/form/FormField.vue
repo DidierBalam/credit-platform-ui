@@ -90,7 +90,7 @@
 
 <script lang="ts">
 //Libraries
-import { defineComponent, reactive, watch, ref, onMounted, onUnmounted } from "vue";
+import { defineComponent, reactive, onMounted, onUnmounted } from "vue";
 
 //Types
 import { FormFieldType } from "@/shared/types/form-types";
@@ -102,21 +102,13 @@ export default defineComponent({
   name: "FormField",
   props: {
     field: null,
-    sectionId: null,
-    subgroupId: null,
   },
-  setup(props, { emit }) {
+  setup(props) {
     //Data
     const data = reactive<FormFieldType>(props.field);
-    const sectionId = ref(props.sectionId);
-    const subgroupId = ref(props.subgroupId);
-
-    //Watch
-    watch(data, (newValue: FormFieldType) => {
-      emit("updateField", { newValue, sectionId, subgroupId });
-    });
 
     //Methods
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const uploadFile = (e: any) => {
       var files = e.target.files;
       var reader = new FileReader();
