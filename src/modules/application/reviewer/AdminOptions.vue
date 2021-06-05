@@ -35,12 +35,12 @@
 //Libraries
 import { defineComponent, ref } from "vue";
 
+//Store
+import { useStore } from "@/store/index";
+
 //Types
 import { ApplicationType } from "@/shared/types/application-types";
 import { ApplicationStatusOptions } from "@/shared/types/enum/applicaton-status-enum";
-
-//Store
-import { useStore } from "@/store/index";
 import { ApplicationActionOptions } from "@/shared/types/enum/store-enum";
 
 export default defineComponent({
@@ -50,10 +50,10 @@ export default defineComponent({
   },
   setup(props) {
     //Data
-
     const store = useStore();
     const dataLoaded = ref<ApplicationType>(props.application);
 
+    //Methods
     const rejectApplication = () => {
       store
         .dispatch(

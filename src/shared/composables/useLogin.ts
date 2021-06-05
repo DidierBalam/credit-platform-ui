@@ -7,29 +7,25 @@ import router from "@/core/router";
 import { useStore } from "@/store/index";
 
 //Types
-import { UserType } from "@/shared/types/user-type";
 import { AuthActionsOptions } from "@/shared/types/enum/store-enum";
 import { StatusResponseType } from "@/shared/types/http-response-types";
+import { UserType } from "@/shared/types/user-type";
 
 
 export default function () {
     //Data
     const store = useStore();
-
-    const user = ref<UserType>({ userId: 0 });
-
+ 
     const isLoading = ref<boolean>(false);
-
+    const isPasswordVisible = ref<boolean>(false);
+    
+    const user = ref<UserType>({ userId: 0 });
     const registerResponse = ref<StatusResponseType>({
         status: true,
         message: "",
     });
 
-
-    const isPasswordVisible = ref<boolean>(false);
-
     //Methods
-
     const signin = async () => {
         if (user.value.username && user.value.password) {
             isLoading.value = true;
@@ -53,8 +49,6 @@ export default function () {
         registerResponse.value.status = false;
         registerResponse.value.message = err;
     };
-
-    //Lifecycle Hooks
 
     return {
         //Data

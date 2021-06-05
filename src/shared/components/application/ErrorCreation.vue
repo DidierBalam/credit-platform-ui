@@ -22,6 +22,7 @@ import { useStore } from "@/store";
 
 //Types
 import { ModalMutationOptions } from "@/shared/types/enum/store-enum";
+
 export default defineComponent({
   name: "ErrorCreation",
   setup() {

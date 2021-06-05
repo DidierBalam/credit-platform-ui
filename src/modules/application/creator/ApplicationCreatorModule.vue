@@ -64,6 +64,9 @@
 import { defineComponent, Ref, ref } from "vue";
 import router from "@/core/router";
 
+//Store
+import { useStore } from "@/store/index";
+
 //Config
 import { dynamicForm } from "./config/form";
 
@@ -77,9 +80,6 @@ import {
 
 //Services
 import { getFormData } from "@/shared/presenters/application-presenter";
-
-//Store
-import { useStore } from "@/store/index";
 
 //Mixins
 import { scrollMixin } from "@/shared/mixins/scroll-mixin";

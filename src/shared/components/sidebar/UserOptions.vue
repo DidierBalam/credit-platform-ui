@@ -2,7 +2,7 @@
   <div class="options">
     <router-link class="link" to="/">
       <button class="btn primary-btn purple -wd100">
-        <p>Dashboard</p>
+        <p>Home</p>
       </button>
     </router-link>
   </div>
@@ -13,9 +13,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SidebarUserOptions",
-  setup() {
-    //
-  },
+  name: "SidebarUserOptions"
 });
 </script>

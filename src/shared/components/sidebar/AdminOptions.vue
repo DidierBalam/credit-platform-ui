@@ -23,9 +23,6 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  name: "SidebarAdminOptions",
-  setup() {
-    //
-  },
+  name: "SidebarAdminOptions"
 });
 </script>

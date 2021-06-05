@@ -30,7 +30,7 @@
 
 <script lang="ts">
 //Libraries
-import { defineComponent, ref } from "vue";
+import { defineComponent } from "vue";
 
 //Mixins
 import { scrollMixin } from "@/shared/mixins/scroll-mixin";
@@ -56,12 +56,6 @@ export default defineComponent({
   mixins: [scrollMixin],
   setup() {
     //Data
-    const isLoading = ref<boolean>(false);
-
-    return {
-      //Data
-      isLoading,
-    };
   },
 });
 </script>

@@ -111,12 +111,12 @@
 import { computed, defineAsyncComponent, defineComponent } from "vue";
 import router from "@/core/router";
 
+//Store
+import { useStore } from "@/store/index";
+
 //Types
 import { ApplicationType } from "@/shared/types/application-types";
 import { ApplicationStatusOptions } from "@/shared/types/enum/applicaton-status-enum";
-
-//Store
-import { useStore } from "@/store/index";
 
 //Services
 import { translateApplicationStatusName } from "@/shared/services/translate-service";

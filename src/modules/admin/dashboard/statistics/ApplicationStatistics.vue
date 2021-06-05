@@ -42,9 +42,13 @@
 
 <script lang="ts">
 //Libraries
-import { MetricCountType } from "@/shared/types/metric-count-type";
-import { useStore } from "@/store/index";
 import { computed, defineComponent } from "vue";
+
+//Store
+import { useStore } from "@/store/index";
+
+//Types
+import { MetricCountType } from "@/shared/types/metric-count-type";
 
 export default defineComponent({
   name: "ApplicationStatistics",

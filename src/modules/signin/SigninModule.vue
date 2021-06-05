@@ -96,7 +96,7 @@ export default defineComponent({
     LoadingBar,
   },
   setup() {
-    //Data
+    //Use
     const { user, isLoading, isPasswordVisible, registerResponse, signin } = useLogin();
 
     return {

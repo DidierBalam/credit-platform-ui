@@ -6,11 +6,11 @@ import { useStore } from '@/store/index';
 
 //Types
 import { ApplicationStatusOptions } from '@/shared/types/enum/applicaton-status-enum';
+import { ApplicationType } from '../types/application-types';
 
 //Services
 import { translateApplicationStatusName } from '@/shared/services/translate-service';
 import { getLocalTime, determineIsNew } from '@/shared/services/time-service';
-import { ApplicationType } from '../types/application-types';
 
 export default function() {
   //Data

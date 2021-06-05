@@ -35,6 +35,8 @@ import { computed, defineComponent } from "vue";
 
 //Store
 import { useStore } from "@/store";
+
+//Types
 import { MetricCountType } from "@/shared/types/metric-count-type";
 
 export default defineComponent({

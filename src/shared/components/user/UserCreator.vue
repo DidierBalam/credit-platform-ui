@@ -65,11 +65,11 @@ import { useStore } from "@/store/index";
 
 //Types
 import { ModalMutationOptions, UserActionOptions } from "../../types/enum/store-enum";
+import { UserRegisterResponseType } from "@/shared/types/http-response-types";
 import { UserType } from "@/shared/types/user-type";
 
 //Components
 import LoadingProcess from "../LoadingProcess.vue";
-import { UserRegisterResponseType } from "@/shared/types/http-response-types";
 
 export default defineComponent({
   name: "UserCreator",

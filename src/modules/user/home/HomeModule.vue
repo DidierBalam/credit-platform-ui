@@ -98,11 +98,11 @@ import { useStore } from "@/store/index";
 
 //Types
 import { ApplicationStatusOptions } from "@/shared/types/enum/applicaton-status-enum";
+import { ApplicationType } from "@/shared/types/application-types";
 
 //Services
 import { translateApplicationStatusName } from "@/shared/services/translate-service";
 import { getLocalTime, determineIsNew } from "@/shared/services/time-service";
-import { ApplicationType } from "@/shared/types/application-types";
 
 //Mixins
 import { scrollMixin } from "@/shared/mixins/scroll-mixin";
@@ -119,6 +119,7 @@ export default defineComponent({
   },
   mixins: [scrollMixin],
   setup() {
+    //Data
     const store = useStore();
 
     //Computed

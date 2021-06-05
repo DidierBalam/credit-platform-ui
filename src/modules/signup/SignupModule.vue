@@ -86,10 +86,10 @@ import useLogin from "@/shared/composables/useLogin";
 
 //Types
 import { UserActionOptions } from "@/shared/types/enum/store-enum";
+import { UserRegisterResponseType } from "@/shared/types/http-response-types";
 
 //Components
 import LoadingBar from "../../shared/components/LoadingBar.vue";
-import { UserRegisterResponseType } from "@/shared/types/http-response-types";
 
 export default defineComponent({
   name: "SignupModule",
@@ -98,6 +98,9 @@ export default defineComponent({
   },
   setup() {
     //Data
+    const loadingTitle = ref<string>("");
+
+    //Use
     const {
       store,
       user,
@@ -107,8 +110,6 @@ export default defineComponent({
       signin,
       showError,
     } = useLogin();
-
-    const loadingTitle = ref<string>("");
 
     //Methods
     const signup = () => {

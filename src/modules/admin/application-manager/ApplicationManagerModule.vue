@@ -98,8 +98,9 @@ export default defineComponent({
     Sidebar,
     NavBar,
   },
-  mixins:[scrollMixin],
+  mixins: [scrollMixin],
   setup() {
+    //Use
     const {
       applications,
       ApplicationStatusOptions,

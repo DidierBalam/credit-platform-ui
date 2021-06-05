@@ -50,7 +50,6 @@ export default defineComponent({
     ReviewerField,
   },
   props: {
-    elementId: Number,
     application: null,
   },
   emits: ["update"],

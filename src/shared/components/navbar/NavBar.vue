@@ -52,16 +52,17 @@ import router from "@/core/router";
 //Store
 import { useStore } from "@/store/index";
 
-//Services
-import { executeDropdown } from "@/shared/services/dom-service";
+//Type
 import { AuthActionsOptions } from "@/shared/types/enum/store-enum";
 import { StatusResponseType } from "@/shared/types/http-response-types";
+
+//Services
+import { executeDropdown } from "@/shared/services/dom-service";
 
 export default defineComponent({
   name: "NavBar",
   setup() {
     //Data
-
     const store = useStore();
 
     //Computed
